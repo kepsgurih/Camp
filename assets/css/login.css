@@ -60,7 +60,14 @@ form.sign-up-form {
 form.sign-in-form {
   z-index: 2;
 }
-
+.alert {
+  border-color: red;
+  border:4px;
+  border-style: dotted;
+  font-size: 1rem;
+  color: red;
+  margin-bottom: 10px;
+}
 .title {
   font-size: 2.2rem;
   color: #444;
@@ -400,4 +407,37 @@ form.sign-in-form {
     bottom: 28%;
     left: 50%;
   }
+}
+.callout {
+  position: fixed;
+  bottom: 35px;
+  right: 20px;
+  margin-left: 20px;
+  max-width: 300px;
+}
+
+.callout-header {
+  padding: 25px 15px;
+  background: #555;
+  font-size: 30px;
+  color: white;
+}
+
+.callout-container {
+  padding: 15px;
+  background-color: #ccc;
+  color: black
+}
+
+.closebtn {
+  position: absolute;
+  top: 5px;
+  right: 15px;
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.closebtn:hover {
+  color: lightgrey;
 }

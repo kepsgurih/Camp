@@ -24,19 +24,46 @@ class Homepage extends CI_Controller
 	{
 		parent::__construct();
 		require_once APPPATH . '../vendor/autoload.php';
-		$this->API = "https://604c6676d3e3e10017d51910.mockapi.io/api/v1/";
+		$this->API = "https://604c6676d3e3e10017d51910.mockapi.io/api/v1";
 	}
 	public function index()
 	{
+
 		$data['title'] = 'Home';
 		$this->load->view('Section/header',$data);
 		$this->load->view('Screen/HomeScreen');
 		$this->load->view('Section/footer',$data);
 	}
-	public function in()
+	public function register()
 	{
-		$data['userdata'] = $_SESSION;
-		$this->load->view('welcome_message.php', $data);
+		if(isset($_POST['submit'])){
+			$data = array(
+				'email'     =>  $this->input->post('email'),
+				'username'  =>  $this->input->post('username'),
+				'password'  =>  $this->input->post('password'),
+				'picture'  =>  $this->input->post('picture'),
+				'name'      =>  $this->input->post('name'));
+			$api_check = json_decode($this->curl->simple_get($this->API.'/users?search='.$data['email']));
+			if (!isset($api_check[0]->email)){
+				$this->session->set_flashdata('insert','Anda berhasil terhubung !');
+				$insert =  $this->curl->simple_post($this->API.'/users', $data, array(CURLOPT_BUFFERSIZE => 10));
+			}else{
+				$this->session->set_flashdata('insert','Ooops ! Email sudah digunakan deh.');
+				redirect('homepage/login');
+			}
+			// 
+			// if($insert)
+			// {
+			// 	$this->session->set_userdata($data);
+			// 	
+			// }else
+			// {
+			// 	$this->session->set_flashdata('hasil','Insert Data Gagal');
+			// }
+			redirect('homepage');
+		}else{
+			redirect('homepage/login');
+		}
 	}
 	public function out()
 	{
@@ -89,6 +116,13 @@ class Homepage extends CI_Controller
 		if (isset($pay_load)) {
 
 			if (!empty($pay_load['email'])); {
+				$arx = array(
+				'email'     =>  $pay_load['email'],
+				'username'  =>  'account_' . $pay_load['given_name'],
+				'password'  =>  '',
+				'picture'  =>  $pay_load['picture'],
+				'name'      =>  $pay_load['name']);
+				$insert =  $this->curl->simple_post($this->API.'/users', $arx, array(CURLOPT_BUFFERSIZE => 10));
 				$this->session->set_userdata($pay_load);
 				header('Location: ' . base_url());
 			}
