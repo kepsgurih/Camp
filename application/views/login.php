@@ -7,16 +7,34 @@
 <body>
 
 <div class="topnav">
+	
   <a class="active" href="#home">Home</a>
   <a href="#about">About</a>
   <a href="#contact">Contact</a>
+
   <div class="login-container">
+  <?php if (!empty($_SESSION['email'])){
+  	?>
+      <a href="<?=base_url() ?>index.php/homepage/out">Logout</a>
+
+  <?php }else{?>
+
       <a href="<?php echo $auth_url ?>">Login</a>
+<?php }?>
   </div>
 </div>
-
 <div style="padding-left:16px">
-  <h2>Responsive Login Form in Navbar</h2>
+	<?php if (!empty($error_google)){
+		echo 'error';
+	}
+	?>
+  <h2>Responsive Login Form in Navbar 
+  	<?php 
+  	if (!empty($_SESSION['email'])){
+  	echo $_SESSION['email'];
+  }
+  ?>
+  </h2>
   <p>Navigation menu with a login form and a submit button inside of it.</p>
   <p>Resize the browser window to see the responsive effect.</p>
 </div>

@@ -34,8 +34,6 @@ class Homepage extends CI_Controller {
 //Step 2 : Create the url
 		$auth_url = $g_client->createAuthUrl();
 		$data['auth_url'] =$auth_url;
-// HTML
-		$this->load->view('login',$data);
 
 //Step 3 : Get the authorization  code
 		$code = isset($_GET['code']) ? $_GET['code'] : NULL;
@@ -49,7 +47,7 @@ class Homepage extends CI_Controller {
 				$g_client->setAccessToken($token);
 
 			}catch (Exception $e){
-				echo $e->getMessage();
+				$data['error_google']="error";
 			}
 
 
@@ -60,7 +58,7 @@ class Homepage extends CI_Controller {
 
 
 			}catch (Exception $e) {
-				echo $e->getMessage();
+				$data['error_google']="error";
 			}
 
 		} else{
@@ -68,16 +66,24 @@ class Homepage extends CI_Controller {
 		}
 
 		if(isset($pay_load)){
-			$this->session->set_userdata($pay_load);
-			echo var_dump($pay_load);
-			echo $pay_load['email'];
+
+			if (!empty($pay_load['email']));{
+				$this->session->set_userdata($pay_load);
+				header('Location: ' . base_url() );
+			}
 
 
 		}
+		$this->load->view('login',$data);
 		
 	}
 	public function in(){
 		$data['userdata'] = $_SESSION;
 		$this->load->view('welcome_message.php',$data);
+	}
+	public function out(){
+		session_destroy();
+		header('Location: ' . base_url() );
+
 	}
 }
