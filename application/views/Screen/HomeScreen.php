@@ -20,6 +20,7 @@
   </a>
 </div>
 <div style="padding-left:16px">
+  <h2>Hello <?php if (empty($_SESSION['name'])){echo 'Pendaki !';} else{ echo $_SESSION['name'];}?></h2>
   <h2>Responsive Topnav Example</h2>
   <p>Resize the browser window to see how it works.</p>
 </div>
