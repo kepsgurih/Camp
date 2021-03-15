@@ -62,7 +62,8 @@ form.sign-in-form {
 }
 .alert {
   border-color: red;
-  border:4px;
+  border-radius: 20px;
+  border:3px;
   border-style: dotted;
   font-size: 1rem;
   color: red;

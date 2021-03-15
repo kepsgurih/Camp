@@ -3,10 +3,10 @@
   <!-- Jika Belum Masuk -->
   <?php 
     if (empty($_SESSION['email'])){?>
-      <a class="btn-login" href="<?=base_url('homepage/login');?>">Login | Register</a>
+      <a class="btn-login" href="<?=base_url('homepage/login');?>">Gabung</a>
     <?php
   }else{?>
-    <a href="" style="float:right"><img class="avatar" src="<?=$_SESSION['picture'];?>"></a>
+    <a href="" style="float:right"><img class="avatar" src="<?php if(isset($_SESSION['picture'])){echo $_SESSION['picture'];}else{echo base_url('assets/icons/user.svg');}?>"></a>
   <a class="btn-login" href="<?=base_url('homepage/out');?>">Logout</a>
   <?php }?>
 </div>
@@ -21,7 +21,5 @@
 </div>
 <div style="padding-left:16px">
   <h2>Hello <?php if (empty($_SESSION['name'])){echo 'Pendaki !';} else{ echo $_SESSION['name'];}?></h2>
-  <p><?php echo $this->session->flashdata('insert'); ?></p> 
-  <h2>Responsive Topnav Example</h2>
-  <p>Resize the browser window to see how it works.</p>
+  <p>Ini Nanti diisi Main, Navbar nanti warna biru</p>
 </div>
